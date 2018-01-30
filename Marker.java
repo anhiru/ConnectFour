@@ -1,40 +1,49 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.geom.Ellipse2D;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import java.awt.event.*;
 
-class Marker extends JComponent {
-	private int x, y;
+public class Marker {
+	private int row, col;
+	private boolean empty, red, finalized;
 	private Color color;
-	private Ellipse2D.Double marker;
-	private boolean empty;
 
-	public Marker(int x, int y) {
-		this.x = x;
-		this.y = y;
-		marker = new Ellipse2D.Double(x, y, 90, 90);
+	public Marker(int row, int col) {
+		this.row = row;
+		this.col = col;
 		empty = true;
+		red = true;
+		finalized = false;
 	}
-	public Ellipse2D.Double getMarker() {
-		return marker;
+	public int getRow() {
+		return row;
 	}
-	public Color getColor(int i) {
-		if(i == 1) {
-			color = new Color(255, 70, 25);
-		} else if (i == 2) {
-			color = new Color(255, 200, 25);
-		} else {
+	public int getCol() {
+		return col;
+	}
+	public void fill() {
+		empty = false;
+	}
+	public boolean isEmpty() {
+		return empty;
+	}
+	public void setYellow() {
+		red = false;
+	}
+	public boolean isRed() {
+		return red;
+	}
+	public void finalize() {
+		finalized = true;
+	}
+	public boolean isFinal() {
+		return finalized;
+	}
+	public Color recolor() {
+		if(empty) {
 			color = new Color(255, 255, 255);
+		} else if (red) {
+			color = new Color(255, 70, 25);
+		} else {
+			color = new Color(255, 200, 25);
 		}
 		return color;
-	}
-	public int getStatus() {
-		if(empty) {
-			return 0;
-		}
-		return 1;
 	}
 }
