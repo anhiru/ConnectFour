@@ -31,7 +31,12 @@ class Board extends JComponent {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setFont(new Font("Impact", Font.PLAIN, 24));
 
-		if(redTurn || firstPiece) {
+		if(firstPiece) {
+			g.setColor(new Color(255, 70, 25)); //red
+			g.drawString("Player 1", 20, 40);
+			g.setColor(Color.BLACK);
+			g.drawString("Player 2", width-95, 40);
+		} else if(redTurn) {
 			g.setColor(new Color(255, 70, 25)); //red
 			g.drawString("Player 1", 20, 40);
 			g.setColor(Color.BLACK);
@@ -70,9 +75,6 @@ class Board extends JComponent {
 							g.drawString("Player 2 wins!", width/2-70, 30);
 						}
 					}	
-				}
-				if(firstPiece) {
-					m.setRed();
 				}
 				Ellipse2D.Double circle = new Ellipse2D.Double(j*(cell+20)+cell/20+5, i*(cell+20)+cell/20+85, cell, cell);
 				g.draw(circle);
