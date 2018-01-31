@@ -1,5 +1,6 @@
 import java.awt.Color;
 
+//marker = game piece
 public class Marker {
 	private int row, col;
 	private boolean empty, red, finalized;
@@ -27,6 +28,9 @@ public class Marker {
 	public void setYellow() {
 		red = false;
 	}
+	public void setRed() {
+		red = true;
+	}
 	public boolean isRed() {
 		return red;
 	}
@@ -45,5 +49,10 @@ public class Marker {
 			color = new Color(255, 200, 25);
 		}
 		return color;
+	}
+	public void reset() {
+		empty = true;
+		red = true;
+		finalized = false;
 	}
 }

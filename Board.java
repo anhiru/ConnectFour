@@ -1,8 +1,10 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.geom.Ellipse2D;
 import javax.swing.JComponent;
+import javax.swing.JButton;
 import java.util.ArrayList;
 
 class Board extends JComponent {
@@ -22,7 +24,10 @@ class Board extends JComponent {
 	}
 	public void paintComponent(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
-		
+		g.setFont(new Font("Impact", Font.PLAIN, 24));
+		g.drawString("Player 1", 20, 40);
+		g.drawString("Player 2", width-85, 40);
+
 		//(left, top, width, height)
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < col; j++) {
@@ -30,14 +35,16 @@ class Board extends JComponent {
 				if(m.isEmpty()) {
 					g.setColor(m.recolor());
 				} else if(!m.isFinal()) {
-					if(!redTurn) {
+					if(redTurn) {
+						m.setRed();
+					} else {
 						m.setYellow();
-					} 
+					}
 					g.setColor(m.recolor());
 					m.finalize();
 					checkWin(m);
 					if(gameOver) {
-						g.drawString("GAME!", width/2-20, 40);
+						g.drawString("GAME!", width/2-25, 30);
 					}
 				} else {
 					g.setColor(m.recolor());
@@ -45,7 +52,6 @@ class Board extends JComponent {
 				Ellipse2D.Double circle = new Ellipse2D.Double(j*(cell+20)+cell/20+5, i*(cell+20)+cell/20+85, cell, cell);
 				g.draw(circle);
 				g.fill(circle);
-				//g.drawString(m.test(), j*(cell+20)+cell/20+5, i*(cell+20)+cell/20+5);
 			}
 		}
 		redTurn = !redTurn;
@@ -89,34 +95,35 @@ class Board extends JComponent {
 		}
 		isFourInARow(temp);
 
-		//win diagonally left
+		//win diagonally up left
 		int dRow = i;
 		int dCol = j;
-		while(dRow < row-1 && dCol < col-1) {
+		while(dRow < row && dCol < col) {
 			dRow++;
 			dCol++;
 		}
-		while(dRow > 0 && dCol > 0) {
+		while(dRow >= 0 && dCol >= 0) {
 			temp.add(grid[dRow][dCol]);
 			dRow--;
 			dCol--;
 		}
 		isFourInARow(temp);
 
-		//win diagonally right
+		//win diagonally up right
 		dRow = i;
 		dCol = j;
-		while(dRow < row-1 && dCol > 0) {
+		while(dRow < row && dCol >= 0) {
 			dRow++;
 			dCol--;
 		}
-		while(dRow > 0 && dCol < col-1) {
+		while(dRow >= 0 && dCol < col) {
 			temp.add(grid[dRow][dCol]);
 			dRow--;
 			dCol++;
 		}
 		isFourInARow(temp);
 	}
+	//checks arraylist for 4 in a row
 	public void isFourInARow(ArrayList<Marker> temp) {
 		if(temp.size() >= 4) {
 			int count = 1;
@@ -134,5 +141,16 @@ class Board extends JComponent {
 			}
 		}
 		temp.clear();
+	}
+	//reset default conditions
+	public void newGame() {
+		gameOver = false;
+		redTurn = true;
+		for(int i = 0; i < row; i++) {
+			for(int j = 0; j < col; j++) {
+				grid[i][j].reset();
+			}
+		}
+		repaint();
 	}
 }
