@@ -44,9 +44,9 @@ public class Marker {
 		if(empty) {
 			color = Color.WHITE;
 		} else if (red) {
-			color = new Color(255, 70, 25);
+			color = new Color(255, 70, 25); //red
 		} else {
-			color = new Color(255, 200, 25);
+			color = new Color(255, 200, 25); //yellow
 		}
 		return color;
 	}

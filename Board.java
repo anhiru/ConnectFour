@@ -9,40 +9,39 @@ import java.util.ArrayList;
 
 class Board extends JComponent {
 	private int row, col, cell, height, width; //playerOneWins, playerTwoWins;
-	private boolean redTurn, gameOver;
+	private boolean firstPiece, redTurn, gameOver;
 	private Marker[][] grid;
 	private ArrayList<Marker> test;
 
 	public Board() {
-		//playerOneWins = 0;
-		//playerTwoWins = 0;
 		row = 6;
 		col = 7;
 		cell = 80;
 		height = (20+cell)*row;
 		width = (20+cell)*col;
+		firstPiece = true;
 		redTurn = true;
 		gameOver = false;
 		grid = new Marker[row][col];
 		test = new ArrayList<Marker>();
+		//playerOneWins = 0;
+		//playerTwoWins = 0;
 	}
 	public void paintComponent(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setFont(new Font("Impact", Font.PLAIN, 24));
 
-		if(redTurn) {
-			g.setColor(new Color(255, 70, 25));
+		if(redTurn || firstPiece) {
+			g.setColor(new Color(255, 70, 25)); //red
 			g.drawString("Player 1", 20, 40);
 			g.setColor(Color.BLACK);
 			g.drawString("Player 2", width-95, 40);
 		} else {
 			g.setColor(Color.BLACK);
 			g.drawString("Player 1", 20, 40);
-			g.setColor(new Color(255, 200, 25));
+			g.setColor(new Color(255, 200, 25)); //yellow
 			g.drawString("Player 2",width-95, 40);
 		}
-		//g.drawString("Player 1", 20, 40);
-		//g.drawString("Player 2", width-95, 40);
 
 		//(left, top, width, height)
 		for(int i = 0; i < row; i++) {
@@ -57,45 +56,31 @@ class Board extends JComponent {
 					g.setColor(m.recolor());
 					m.finalize();
 					checkWin(m);
-					/*if(gameOver) {
-						g.drawString("GAME!", width/2-30, 30);
-					}*/
+					/*
 					if(gameOver) {
-						//incrementWins(redTurn);
+						g.drawString("GAME!", width/2-30, 30);
+					}
+					*/
+					if(gameOver) {
 						if(!redTurn) {
 							g.drawString("Player 1 wins!", width/2-70, 30);
 						} else {
 							g.drawString("Player 2 wins!", width/2-70, 30);
 						}
-					/*
-					} else {
-						g.setColor(Color.WHITE);
-						g.drawString(Integer.toString(playerOneWins) + " — " + Integer.toString(playerTwoWins), width/2-30, 30);
-					*/
 					}	
 				} else {
 					g.setColor(m.recolor());
+				}
+				if(firstPiece) {
+					m.setRed();
 				}
 				Ellipse2D.Double circle = new Ellipse2D.Double(j*(cell+20)+cell/20+5, i*(cell+20)+cell/20+85, cell, cell);
 				g.draw(circle);
 				g.fill(circle);
 			}
 		}
+		firstPiece = false;
 		redTurn = !redTurn;
-		/*
-		if(gameOver) {
-			//incrementWins(redTurn);
-			if(!redTurn) {
-				g.drawString("Player 2 wins!", width/2-70, 30);
-			} else {
-				g.drawString("Player 1 wins!", width/2-70, 30);
-			}
-		/*
-		} else {
-			g.setColor(Color.WHITE);
-			g.drawString(Integer.toString(playerOneWins) + " — " + Integer.toString(playerTwoWins), width/2-30, 30);
-		}	
-		*/
 	}
 	public void createGrid() {
 		for(int i = 0; i < row; i++) {
@@ -104,13 +89,6 @@ class Board extends JComponent {
 			}
 		}
 	}
-	/*
-	public void setPlayers() {
-		for(int i = 0; i < players.length; i++) {
-			players[i] = new Player();
-		}
-	}
-	*/
 	public int getRow() {
 		return row;
 	}
@@ -129,7 +107,6 @@ class Board extends JComponent {
 	public void checkWin(Marker m) {
 		int i = m.getRow();
 		int j = m.getCol();
-		//ArrayList<Marker> temp = new ArrayList<Marker>();
 		
 		//win vertically
 		for(int k = i; k < row; k++) {
@@ -171,6 +148,7 @@ class Board extends JComponent {
 		}
 		isFourInARow(test);
 	}
+
 	//checks arraylist for 4 in a row
 	public void isFourInARow(ArrayList<Marker> temp) {
 		if(test.size() >= 4) {
@@ -190,19 +168,12 @@ class Board extends JComponent {
 		}
 		test.clear();
 	}
-	/*
-	public void incrementWins(boolean redWins) {
-		if(redWins) {
-			playerOneWins++;
-		} else {
-			playerTwoWins++;
-		}
-	}
-	*/
+	
 	//reset default conditions
 	public void newGame() {
 		gameOver = false;
 		redTurn = false;
+		firstPiece = true;
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < col; j++) {
 				grid[i][j].reset();

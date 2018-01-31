@@ -1,19 +1,16 @@
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import java.awt.event.*;
 import java.awt.Color;
-import java.util.ArrayList;
+//import javax.swing.JTextField;
 
 public class ConnectFour {
 	private static Board cf;
 	private static JFrame f;
 	private static JButton b;
-	//private static ArrayList<Player> players;
 
 	public static void main(String[] args) {
 		f = new JFrame();
-		//players = new ArrayList<Player>();
 
 		//(width, height)
 		f.setSize(700, 700);
@@ -23,7 +20,6 @@ public class ConnectFour {
 		
 		cf = new Board();
 		cf.createGrid();
-		//cf.setPlayers();
 
 		//final JTextField tf = new JTextField();
 		//tf.setBounds(330, 20, 150, 20);
