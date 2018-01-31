@@ -20,7 +20,7 @@ class Board extends JComponent {
 		height = (20+cell)*row;
 		width = (20+cell)*col;
 		firstPiece = true;
-		redTurn = true;
+		redTurn = false;
 		gameOver = false;
 		grid = new Marker[row][col];
 		test = new ArrayList<Marker>();
@@ -31,7 +31,7 @@ class Board extends JComponent {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setFont(new Font("Impact", Font.PLAIN, 24));
 
-		if(redTurn || firstPiece) {
+		if(firstPiece || redTurn) {
 			g.setColor(new Color(255, 70, 25)); //red
 			g.drawString("Player 1", 20, 40);
 			g.setColor(Color.BLACK);
@@ -49,7 +49,9 @@ class Board extends JComponent {
 				Marker m = grid[i][j];
 				if(m.isEmpty()) {
 					g.setColor(m.recolor());
-				} else if(!m.isFinal()) {
+				} else if(m.isFinal()) {
+					g.setColor(m.recolor());
+				} else {
 					if(redTurn) {
 						m.setYellow();
 					}
@@ -68,8 +70,6 @@ class Board extends JComponent {
 							g.drawString("Player 2 wins!", width/2-70, 30);
 						}
 					}	
-				} else {
-					g.setColor(m.recolor());
 				}
 				if(firstPiece) {
 					m.setRed();
@@ -170,10 +170,16 @@ class Board extends JComponent {
 	}
 	
 	//reset default conditions
-	public void newGame() {
+	public void newGame(char colorStart) {
 		gameOver = false;
-		redTurn = false;
-		firstPiece = true;
+		if(colorStart == 'r') {
+			redTurn = false;
+			firstPiece = true;
+		} 
+		if(colorStart == 'y') {
+			redTurn = true;
+			firstPiece = false;
+		}
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < col; j++) {
 				grid[i][j].reset();

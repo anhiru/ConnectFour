@@ -7,7 +7,7 @@ import java.awt.Color;
 public class ConnectFour {
 	private static Board cf;
 	private static JFrame f;
-	private static JButton b;
+	private static JButton bRed, bYellow;
 
 	public static void main(String[] args) {
 		f = new JFrame();
@@ -23,14 +23,22 @@ public class ConnectFour {
 
 		//final JTextField tf = new JTextField();
 		//tf.setBounds(330, 20, 150, 20);
-		b = new JButton("REPLAY");
-		b.setBounds(300, 40, 95, 30);
-		b.addActionListener(new ActionListener() {
+		bRed = new JButton("RED START");
+		bRed.setBounds(225, 40, 120, 30);
+		bRed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cf.newGame();
+				cf.newGame('r');
 			}
 		});
-		f.add(b);
+		bYellow = new JButton("YELLOW START");
+		bYellow.setBounds(350, 40, 120, 30);
+		bYellow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cf.newGame('y');
+			}
+		});
+		f.add(bRed);
+		f.add(bYellow);
 		//f.add(tf);
 
 		f.addMouseListener(new MouseAdapter() {
