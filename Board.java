@@ -31,7 +31,7 @@ class Board extends JComponent {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setFont(new Font("Impact", Font.PLAIN, 24));
 
-		if(firstPiece || redTurn) {
+		if(redTurn || firstPiece) {
 			g.setColor(new Color(255, 70, 25)); //red
 			g.drawString("Player 1", 20, 40);
 			g.setColor(Color.BLACK);
