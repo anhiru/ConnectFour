@@ -1,15 +1,15 @@
 public class Player {
 	//private String name;
-	private int wins;
+	private int score;
 
 	public Player() {
 		//this.name = name;
-		wins = 0;
+		score = 0;
 	}
 	public void winOne() {
-		wins++;
+		score++;
 	}
-	public int getWins() {
-		return wins;
+	public int getScore() {
+		return score;
 	}
 }

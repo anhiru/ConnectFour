@@ -42,7 +42,7 @@ public class Marker {
 	}
 	public Color recolor() {
 		if(empty) {
-			color = new Color(255, 255, 255);
+			color = Color.WHITE;
 		} else if (red) {
 			color = new Color(255, 70, 25);
 		} else {
