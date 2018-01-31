@@ -98,7 +98,7 @@ class Board extends JComponent {
 		//win diagonally up left
 		int dRow = i;
 		int dCol = j;
-		while(dRow < row && dCol < col) {
+		while(dRow < row-1 && dCol < col-1) {
 			dRow++;
 			dCol++;
 		}
@@ -112,7 +112,7 @@ class Board extends JComponent {
 		//win diagonally up right
 		dRow = i;
 		dCol = j;
-		while(dRow < row && dCol >= 0) {
+		while(dRow < row-1 && dCol > 0) {
 			dRow++;
 			dCol--;
 		}
