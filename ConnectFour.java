@@ -14,7 +14,7 @@ public class ConnectFour {
 
 		//(width, height)
 		f.setSize(700, 700);
-		f.setTitle("Connect Four");
+		f.setTitle("Andrew's Connect Four");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setBackground(new Color(0, 135, 180));
 		

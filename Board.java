@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.Ellipse2D;
 import javax.swing.JComponent;
-import javax.swing.JButton;
 import java.util.ArrayList;
 
 class Board extends JComponent {
@@ -31,12 +30,7 @@ class Board extends JComponent {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setFont(new Font("Impact", Font.PLAIN, 24));
 
-		if(firstPiece) {
-			g.setColor(new Color(255, 70, 25)); //red
-			g.drawString("Player 1", 20, 40);
-			g.setColor(Color.BLACK);
-			g.drawString("Player 2", width-95, 40);
-		} else if(redTurn) {
+		if(redTurn || firstPiece) {
 			g.setColor(new Color(255, 70, 25)); //red
 			g.drawString("Player 1", 20, 40);
 			g.setColor(Color.BLACK);
