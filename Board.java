@@ -11,6 +11,7 @@ class Board extends JComponent {
 	private boolean firstPiece, redTurn, gameOver;
 	private Marker[][] grid;
 	private ArrayList<Marker> test;
+	private Sound s;
 
 	public Board() {
 		row = 6;
@@ -23,6 +24,7 @@ class Board extends JComponent {
 		gameOver = false;
 		grid = new Marker[row][col];
 		test = new ArrayList<Marker>();
+		s = new Sound();
 		//playerOneWins = 0;
 		//playerTwoWins = 0;
 	}
@@ -63,6 +65,7 @@ class Board extends JComponent {
 					}
 					*/
 					if(gameOver) {
+						s.win();
 						if(!redTurn) {
 							g.drawString("Player 1 wins!", width/2-70, 30);
 						} else {

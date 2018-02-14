@@ -6,11 +6,13 @@ import java.awt.Color;
 
 public class ConnectFour {
 	private static Board cf;
+	private static Sound s;
 	private static JFrame f;
 	private static JButton bRed, bYellow;
 
 	public static void main(String[] args) {
 		f = new JFrame();
+		s = new Sound();
 
 		//(width, height)
 		f.setSize(700, 700);
@@ -26,6 +28,7 @@ public class ConnectFour {
 		bRed = new JButton("RED START");
 		bRed.setBounds(225, 40, 120, 30);
 		bRed.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				cf.newGame('r');
 			}
@@ -42,6 +45,7 @@ public class ConnectFour {
 		//f.add(tf);
 
 		f.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mousePressed(MouseEvent e) {
 				if(!cf.endGame()) {
 					boolean addOne = false;
@@ -56,6 +60,7 @@ public class ConnectFour {
 						}
 					}
 					if(addOne) {
+						s.click();
 						cf.repaint();
 					}
 				}
